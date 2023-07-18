@@ -16,4 +16,6 @@ const projectSchemaRequest = projectSchema
   .omit({ id: true, languages: true })
   .extend({ languages: z.string() });
 
-export { projectSchema, projectSchemaRequest };
+const projectSchemaUpdate = projectSchema.omit({ id: true, languages: true });
+
+export { projectSchema, projectSchemaRequest, projectSchemaUpdate };

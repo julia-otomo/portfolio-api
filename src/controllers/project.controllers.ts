@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { TProjectRequest } from "../interfaces/projects.interfaces";
+import { TProject, TProjectRequest } from "../interfaces/projects.interfaces";
+import { createProjectService } from "../services/projects/createProject.service";
+import { getAllProjectsService } from "../services/projects/getAllProjects.service";
+import { updateProjectService } from "../services/projects/updateProject.service";
+import { deleteProjectService } from "../services/projects/deleteProject.service";
 
 const createProjectController = async (
   request: Request,
@@ -7,14 +11,17 @@ const createProjectController = async (
 ): Promise<Response> => {
   const requestBody: TProjectRequest = request.body;
 
-  return response.status(201).json();
+  const newProject: TProject = await createProjectService(requestBody);
+
+  return response.status(201).json(newProject);
 };
 
 const getAllProjectsController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  return response.json();
+  const projects: TProject[] = await getAllProjectsService();
+  return response.json(projects);
 };
 
 const updateProjectController = async (
@@ -24,7 +31,12 @@ const updateProjectController = async (
   const requestBody: TProjectRequest = request.body;
   const projectTitle: string = request.params.title;
 
-  return response.json();
+  const projectUpdated: TProject = await updateProjectService(
+    requestBody,
+    projectTitle
+  );
+
+  return response.json(projectUpdated);
 };
 
 const deleteProjectController = async (
@@ -32,6 +44,8 @@ const deleteProjectController = async (
   response: Response
 ): Promise<Response> => {
   const projectTitle: string = request.params.title;
+
+  await deleteProjectService(projectTitle);
 
   return response.status(204).send();
 };
