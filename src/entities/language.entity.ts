@@ -5,7 +5,7 @@ class Language {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 20 })
+  @Column({ type: "varchar", length: 50 })
   name: string;
 }
 

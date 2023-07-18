@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitialMigration1689687335833 implements MigrationInterface {
-    name = 'InitialMigration1689687335833'
+export class NewDatabase1689708486890 implements MigrationInterface {
+    name = 'NewDatabase1689708486890'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "languages" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(20) NOT NULL, "description" text, CONSTRAINT "PK_b517f827ca496b29f4d549c631d" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "languages" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying(50) NOT NULL, CONSTRAINT "PK_b517f827ca496b29f4d549c631d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "projects" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying(50) NOT NULL, "description" text, "year" integer NOT NULL, "image" text, "githubPage" text NOT NULL, "vercelPage" text, CONSTRAINT "PK_6271df0a7aed1d6c0691ce6ac50" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "projects_languages_languages" ("projectsId" uuid NOT NULL, "languagesId" uuid NOT NULL, CONSTRAINT "PK_a18feffd59d92d0b90b086b3969" PRIMARY KEY ("projectsId", "languagesId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_22b56f99b0f33c44a6bf528eea" ON "projects_languages_languages" ("projectsId") `);
