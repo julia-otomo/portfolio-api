@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://portfolio-julia-otomo.vercel.app/",
+      "https://portfolio-julia-otomo.vercel.app",
     ],
   })
 );
